@@ -45,3 +45,4 @@ app.get('/api/health', (req, res) => {
 app.use(errorHandler);
 
 module.exports = app;
+
