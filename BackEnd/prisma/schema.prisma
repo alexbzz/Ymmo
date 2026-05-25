@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  phone        String?
+  role         Role          @default(CLIENT)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  agent        Agent?
+  transactions Transaction[]
+  favorites    Favorite[]
+}
+
+enum Role {
+  CLIENT
+  AGENT
+  ADMIN
+}
+
+model Agent {
+  id            String     @id @default(uuid())
+  licenseNumber String     @unique
+  agencyName    String
+  bio           String?
+  userId        String     @unique
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  properties    Property[]
+}
+
+model Property {
+  id           String         @id @default(uuid())
+  title        String
+  description  String
+  price        Float
+  surface      Float
+  rooms        Int
+  type         PropertyType
+  status       PropertyStatus @default(AVAILABLE)
+  address      String
+  city         String
+  postalCode   String
+  latitude     Float?
+  longitude    Float?
+  agentId      String
+  agent        Agent          @relation(fields: [agentId], references: [id])
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  photos       Photo[]
+  transactions Transaction[]
+  favorites    Favorite[]
+}
+
+enum PropertyType {
+  APARTMENT
+  HOUSE
+  LAND
+  COMMERCIAL
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  UNDER_OFFER
+  SOLD
+}
+
+model Photo {
+  id         String   @id @default(uuid())
+  url        String
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+model Transaction {
+  id         String            @id @default(uuid())
+  buyerId    String
+  buyer      User              @relation(fields: [buyerId], references: [id])
+  propertyId String
+  property   Property          @relation(fields: [propertyId], references: [id])
+  offerPrice Float
+  status     TransactionStatus @default(PENDING)
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+}
+
+enum TransactionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+model Favorite {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, propertyId])
+}
