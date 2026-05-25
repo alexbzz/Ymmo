@@ -1,4 +1,10 @@
-const express = require('express');
-const router = express.Router();
-router.get('/', (req, res) => res.json({ message: 'transactions ok' }));
+const express    = require('express');
+const router     = express.Router();
+const controller = require('./transaction.controller');
+const { authenticate, authorize } = require('../../shared/middlewares/auth');
+
+router.post('/',     authenticate, authorize('CLIENT', 'ADMIN'), controller.create);
+router.get('/me',    authenticate, controller.getMyTransactions);
+router.patch('/:id', authenticate, authorize('AGENT', 'ADMIN'), controller.updateStatus);
+
 module.exports = router;
