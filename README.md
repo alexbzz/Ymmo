@@ -1,10 +1,10 @@
-﻿#  Ymmo — Plateforme Immobilière
+﻿# 🏠 Ymmo — Plateforme Immobilière
 
 > Projet académique Bachelor  Informatique — Application web immobilière complète avec API REST, base de données SQL et module IA.
 
 ---
 
-##  Présentation du projet
+## 📋 Présentation du projet
 
 **Ymmo** est une plateforme immobilière fictive permettant :
 - L'achat et la vente de biens immobiliers
@@ -14,7 +14,7 @@
 
 ---
 
-##  Stack technique
+## 🧱 Stack technique
 
 | Couche | Technologie |
 |---|---|
@@ -29,7 +29,7 @@
 
 ---
 
-##  Architecture
+## 🏗️ Architecture
 
 Le projet suit une architecture **monolithe modulaire** :
 
@@ -46,7 +46,7 @@ ymmo/
 
 ---
 
-##  Installation et lancement
+## 🚀 Installation et lancement
 
 ### Prérequis
 - Node.js v22+
@@ -86,14 +86,14 @@ Le serveur démarre sur `http://localhost:3000`
 ### Authentification
 | Méthode | Route | Description | Auth |
 |---|---|---|---|
-| POST | `/api/auth/register` | Créer un compte 
-| POST | `/api/auth/login` | Se connecter 
+| POST | `/api/auth/register` | Créer un compte | ❌ |
+| POST | `/api/auth/login` | Se connecter | ❌ |
 
 ### Biens immobiliers
 | Méthode | Route | Description | Auth |
 |---|---|---|---|
-| GET | `/api/properties` | Liste des biens (filtres) 
-| GET | `/api/properties/:id` | Détail d'un bien 
+| GET | `/api/properties` | Liste des biens (filtres) | ❌ |
+| GET | `/api/properties/:id` | Détail d'un bien | ❌ |
 | POST | `/api/properties` | Créer un bien | AGENT |
 | PUT | `/api/properties/:id` | Modifier un bien | AGENT |
 | DELETE | `/api/properties/:id` | Supprimer un bien | AGENT |
@@ -115,13 +115,13 @@ Le serveur démarre sur `http://localhost:3000`
 ### Analytics / IA
 | Méthode | Route | Description | Auth |
 |---|---|---|---|
-| GET | `/api/analytics/predict-price` | Prédiction de prix 
-| GET | `/api/analytics/trends` | Tendances par zone 
-| GET | `/api/analytics/popular` | Biens populaires 
+| GET | `/api/analytics/predict-price` | Prédiction de prix | ❌ |
+| GET | `/api/analytics/trends` | Tendances par zone | ❌ |
+| GET | `/api/analytics/popular` | Biens populaires | ❌ |
 
 ---
 
-##  Modèle de données
+## 🗃️ Modèle de données
 
 ```
 User ──────── Agent ──────── Property ──── Photo
@@ -141,7 +141,7 @@ User ──────── Agent ──────── Property ───�
 
 ---
 
-## Sécurité
+## 🔐 Sécurité
 
 - **JWT** — authentification stateless, token valable 7 jours
 - **bcrypt** — hash des mots de passe (salt rounds = 12)
@@ -153,7 +153,7 @@ User ──────── Agent ──────── Property ───�
 
 ---
 
-## Tests API
+## 🧪 Tests API
 
 Utiliser **Postman** pour tester les routes.
 
@@ -184,7 +184,7 @@ Content-Type: application/json
 
 ---
 
-## Service IA / Data (Python)
+## 📊 Service IA / Data (Python)
 
 ```bash
 cd data_service
@@ -199,19 +199,19 @@ Fonctionnalités :
 
 ---
 
-## Rôles et permissions
+## 👥 Rôles et permissions
 
 | Action | CLIENT | AGENT | ADMIN |
 |---|---|---|---|
-| Consulter les biens 
-| Publier un bien 
-| Faire une offre
-| Gérer les transactions 
-| Gérer les utilisateurs 
+| Consulter les biens | ✅ | ✅ | ✅ |
+| Publier un bien | ❌ | ✅ | ✅ |
+| Faire une offre | ✅ | ❌ | ✅ |
+| Gérer les transactions | ❌ | ✅ | ✅ |
+| Gérer les utilisateurs | ❌ | ❌ | ✅ |
 
 ---
 
-##  Variables d'environnement
+## 📁 Variables d'environnement
 
 Copier `.env.example` en `.env` et remplir :
 
@@ -226,7 +226,7 @@ PYTHON_SERVICE_URL=http://localhost:8000
 
 ---
 
-##  Contexte académique
+## 🎓 Contexte académique
 
 Projet réalisé dans le cadre du **Bachelor 2 Informatique**.
 
