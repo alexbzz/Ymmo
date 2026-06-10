@@ -1,146 +1,128 @@
 import React, { useState } from 'react';
 import { useProperties } from '../hooks/useProperties';
 import { PropertyCard } from '../components/properties/PropertyCard';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 export const Properties = () => {
   const [filters, setFilters] = useState({});
-  const { properties, loading } = useProperties(filters);
+  const { properties, loading, error } = useProperties(filters);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value || undefined });
+    setFilters((prev) => ({ ...prev, [name]: value || undefined }));
   };
 
+  const handleReset = () => setFilters({});
+
   return (
-    <div style={styles.container}>
-      <div style={styles.content}>
-        <aside style={styles.sidebar}>
-          <h3 style={styles.filterTitle}>Filtres</h3>
-          
-          <div style={styles.filterGroup}>
-            <label>Ville</label>
-            <input
-              type="text"
-              name="city"
-              placeholder="Entrez une ville"
-              onChange={handleFilterChange}
-              style={styles.input}
-            />
-          </div>
+    <main className="page-container" id="main-content">
+      <div className="page-layout">
+        <aside className="filters-sidebar" aria-label="Filtres de recherche">
+          <h2 style={{ marginTop: 0, marginBottom: '1.5rem', fontSize: '1.1rem' }}>Filtres</h2>
 
-          <div style={styles.filterGroup}>
-            <label>Type</label>
-            <select name="type" onChange={handleFilterChange} style={styles.select}>
-              <option value="">Tous</option>
-              <option value="APARTMENT">Appartement</option>
-              <option value="HOUSE">Maison</option>
-              <option value="LAND">Terrain</option>
-              <option value="COMMERCIAL">Commercial</option>
-            </select>
-          </div>
+          <form onSubmit={(e) => e.preventDefault()} aria-label="Formulaire de filtres">
+            <div className="form-group">
+              <label htmlFor="filter-city">Ville</label>
+              <input
+                id="filter-city"
+                type="text"
+                name="city"
+                className="form-input"
+                placeholder="Entrez une ville"
+                value={filters.city || ''}
+                onChange={handleFilterChange}
+              />
+            </div>
 
-          <div style={styles.filterGroup}>
-            <label>Prix min</label>
-            <input
-              type="number"
-              name="minPrice"
-              placeholder="Min"
-              onChange={handleFilterChange}
-              style={styles.input}
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="filter-type">Type</label>
+              <select
+                id="filter-type"
+                name="type"
+                className="form-select"
+                value={filters.type || ''}
+                onChange={handleFilterChange}
+              >
+                <option value="">Tous</option>
+                <option value="APARTMENT">Appartement</option>
+                <option value="HOUSE">Maison</option>
+                <option value="LAND">Terrain</option>
+                <option value="COMMERCIAL">Commercial</option>
+              </select>
+            </div>
 
-          <div style={styles.filterGroup}>
-            <label>Prix max</label>
-            <input
-              type="number"
-              name="maxPrice"
-              placeholder="Max"
-              onChange={handleFilterChange}
-              style={styles.input}
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="filter-minPrice">Prix min (€)</label>
+              <input
+                id="filter-minPrice"
+                type="number"
+                name="minPrice"
+                className="form-input"
+                placeholder="Min"
+                value={filters.minPrice || ''}
+                onChange={handleFilterChange}
+                min="0"
+              />
+            </div>
 
-          <div style={styles.filterGroup}>
-            <label>Surface min (m²)</label>
-            <input
-              type="number"
-              name="minSurface"
-              placeholder="Min"
-              onChange={handleFilterChange}
-              style={styles.input}
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="filter-maxPrice">Prix max (€)</label>
+              <input
+                id="filter-maxPrice"
+                type="number"
+                name="maxPrice"
+                className="form-input"
+                placeholder="Max"
+                value={filters.maxPrice || ''}
+                onChange={handleFilterChange}
+                min="0"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="filter-minSurface">Surface min (m²)</label>
+              <input
+                id="filter-minSurface"
+                type="number"
+                name="minSurface"
+                className="form-input"
+                placeholder="Min"
+                value={filters.minSurface || ''}
+                onChange={handleFilterChange}
+                min="0"
+              />
+            </div>
+
+            <button type="button" className="btn btn-outline btn-full" onClick={handleReset}>
+              Réinitialiser les filtres
+            </button>
+          </form>
         </aside>
 
-        <main style={styles.main}>
-          <h1 style={styles.title}>Propriétés</h1>
+        <section style={{ flex: 1 }} aria-labelledby="properties-title">
+          <h1 id="properties-title" style={{ marginTop: 0 }}>Propriétés</h1>
+
+          {error && (
+            <div className="alert alert-error" role="alert" aria-live="polite">
+              {error}
+            </div>
+          )}
+
           {loading ? (
-            <p>Chargement...</p>
+            <LoadingSpinner label="Chargement des propriétés…" />
           ) : properties.length === 0 ? (
-            <p>Aucune propriété trouvée</p>
+            <p role="status" style={{ color: '#666' }}>Aucune propriété trouvée.</p>
           ) : (
-            <div style={styles.grid}>
+            <div className="properties-grid" role="list" aria-label={`${properties.length} propriété(s) trouvée(s)`}>
               {properties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
+                <div key={property.id} role="listitem">
+                  <PropertyCard property={property} />
+                </div>
               ))}
             </div>
           )}
-        </main>
+        </section>
       </div>
-    </div>
+    </main>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: '1400px',
-    margin: '0 auto',
-    padding: '2rem 1rem'
-  },
-  content: {
-    display: 'flex',
-    gap: '2rem'
-  },
-  sidebar: {
-    flex: '0 0 250px',
-    background: '#f8f9fa',
-    padding: '1.5rem',
-    borderRadius: '8px',
-    height: 'fit-content'
-  },
-  filterTitle: {
-    marginTop: 0,
-    marginBottom: '1.5rem'
-  },
-  filterGroup: {
-    marginBottom: '1.5rem'
-  },
-  input: {
-    width: '100%',
-    padding: '0.5rem',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    boxSizing: 'border-box',
-    marginTop: '0.5rem'
-  },
-  select: {
-    width: '100%',
-    padding: '0.5rem',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    boxSizing: 'border-box',
-    marginTop: '0.5rem'
-  },
-  main: {
-    flex: 1
-  },
-  title: {
-    marginTop: 0
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-    gap: '2rem'
-  }
 };

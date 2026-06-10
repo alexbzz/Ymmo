@@ -54,10 +54,22 @@ const getStats = async (userId) => {
   };
 };
 
+const register = async (userId, data) => {
+  const existing = await prisma.agent.findUnique({ where: { userId } });
+  if (existing) throw { status: 409, message: 'Profil agent déjà existant.' };
+
+  return prisma.agent.create({
+    data: { ...data, userId },
+    include: {
+      user: { select: { firstName: true, lastName: true, email: true, phone: true } },
+    },
+  });
+};
+
 const update = async (userId, data) => {
   const agent = await prisma.agent.findUnique({ where: { userId } });
   if (!agent) throw { status: 404, message: 'Profil agent introuvable.' };
   return prisma.agent.update({ where: { userId }, data });
 };
 
-module.exports = { findAll, findById, getStats, update };
+module.exports = { findAll, findById, getStats, register, update };

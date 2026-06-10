@@ -1,0 +1,1 @@
+import{r as t,p as u}from"./index-DZVayHFt.js";const f={},y=(s=f)=>{const[n,c]=t.useState([]),[i,o]=t.useState(!0),[l,a]=t.useState(null),p=JSON.stringify(s);return t.useEffect(()=>{let e=!1;return(async()=>{try{o(!0),a(null);const r=await u.getAll(s);e||c(r.data)}catch(r){e||a(r.message)}finally{e||o(!1)}})(),()=>{e=!0}},[p]),{properties:n,loading:i,error:l}};export{y as u};

@@ -1,11 +1,12 @@
 const transactionService = require('./transaction.service');
+const { createTransactionSchema } = require('./transaction.validation');
 const { success, error } = require('../../shared/utils/apiResponse');
 
 const create = async (req, res) => {
-  const { propertyId, offerPrice } = req.body;
-  if (!propertyId || !offerPrice) return error(res, 'propertyId et offerPrice requis.', 400);
+  const { value, error: validationError } = createTransactionSchema.validate(req.body);
+  if (validationError) return error(res, validationError.details[0].message, 400);
   try {
-    const transaction = await transactionService.create(req.user.id, propertyId, offerPrice);
+    const transaction = await transactionService.create(req.user.id, value.propertyId, value.offerPrice);
     return success(res, transaction, 201);
   } catch (err) {
     return error(res, err.message, err.status || 500);

@@ -29,4 +29,10 @@ const updatePropertySchema = Joi.object({
   longitude:   Joi.number(),
 });
 
-module.exports = { createPropertySchema, updatePropertySchema };
+const addPhotosSchema = Joi.array().items(
+  Joi.object({
+    url: Joi.string().uri().required(),
+  })
+).min(1).required();
+
+module.exports = { createPropertySchema, updatePropertySchema, addPhotosSchema };

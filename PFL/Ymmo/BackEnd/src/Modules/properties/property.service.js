@@ -54,4 +54,18 @@ const remove = async (id, agentUserId) => {
   return prisma.property.delete({ where: { id } });
 };
 
-module.exports = { findAll, findById, create, update, remove };
+const addPhotos = async (propertyId, agentUserId, photos) => {
+  const property = await prisma.property.findUnique({
+    where: { id: propertyId }, include: { agent: true }
+  });
+  if (!property) throw { status: 404, message: 'Bien introuvable.' };
+  if (property.agent.userId !== agentUserId) throw { status: 403, message: 'Vous ne pouvez ajouter des photos qu\'à vos propres biens.' };
+
+  await prisma.photo.createMany({
+    data: photos.map(({ url }) => ({ url, propertyId })),
+  });
+
+  return prisma.photo.findMany({ where: { propertyId } });
+};
+
+module.exports = { findAll, findById, create, update, remove, addPhotos };

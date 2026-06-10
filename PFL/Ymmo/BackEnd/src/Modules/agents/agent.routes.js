@@ -5,7 +5,8 @@ const { authenticate, authorize } = require('../../shared/middlewares/auth');
 
 router.get('/',          controller.getAll);
 router.get('/my-stats',  authenticate, authorize('AGENT'), controller.getMyStats);
-router.get('/:id',       controller.getById);
+router.post('/register', authenticate, authorize('AGENT'), controller.register);
 router.put('/me',        authenticate, authorize('AGENT'), controller.updateMe);
+router.get('/:id',       controller.getById);
 
 module.exports = router;

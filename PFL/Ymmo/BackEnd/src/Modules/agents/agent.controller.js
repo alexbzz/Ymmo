@@ -1,4 +1,5 @@
 const agentService = require('./agent.service');
+const { registerAgentSchema } = require('./agent.validation');
 const { success, error } = require('../../shared/utils/apiResponse');
 
 const getAll = async (req, res) => {
@@ -29,6 +30,17 @@ const getMyStats = async (req, res) => {
   }
 };
 
+const register = async (req, res) => {
+  const { value, error: validationError } = registerAgentSchema.validate(req.body);
+  if (validationError) return error(res, validationError.details[0].message, 400);
+  try {
+    const agent = await agentService.register(req.user.id, value);
+    return success(res, agent, 201);
+  } catch (err) {
+    return error(res, err.message, err.status || 500);
+  }
+};
+
 const updateMe = async (req, res) => {
   try {
     const agent = await agentService.update(req.user.id, req.body);
@@ -38,4 +50,4 @@ const updateMe = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, getMyStats, updateMe };
+module.exports = { getAll, getById, getMyStats, register, updateMe };

@@ -1,5 +1,5 @@
 const propertyService = require('./property.service');
-const { createPropertySchema, updatePropertySchema } = require('./property.validation');
+const { createPropertySchema, updatePropertySchema, addPhotosSchema } = require('./property.validation');
 const { success, error } = require('../../shared/utils/apiResponse');
 
 const getAll = async (req, res) => {
@@ -52,4 +52,15 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove };
+const addPhotos = async (req, res) => {
+  const { value, error: validationError } = addPhotosSchema.validate(req.body);
+  if (validationError) return error(res, validationError.details[0].message, 400);
+  try {
+    const photos = await propertyService.addPhotos(req.params.id, req.user.id, value);
+    return success(res, photos, 201);
+  } catch (err) {
+    return error(res, err.message, err.status || 500);
+  }
+};
+
+module.exports = { getAll, getById, create, update, remove, addPhotos };
