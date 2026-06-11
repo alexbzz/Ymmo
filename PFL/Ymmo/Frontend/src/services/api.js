@@ -76,6 +76,13 @@ export const favoritesAPI = {
   remove: (propertyId) => api.delete(`/favorites/${propertyId}`),
 };
 
+export const adminAPI = {
+  getOverview: () => api.get('/admin/overview'),
+  getUsers: () => api.get('/admin/users'),
+  updateUserRole: (id, role) => api.patch(`/admin/users/${id}/role`, { role }),
+  deleteUser: (id) => api.delete(`/admin/users/${id}`),
+};
+
 export const analyticsAPI = {
   getMarket: async () => {
     try {

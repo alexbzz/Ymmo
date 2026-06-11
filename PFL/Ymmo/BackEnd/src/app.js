@@ -29,6 +29,7 @@ app.use('/api/agents',       require('./modules/agents/agent.routes'));
 app.use('/api/transactions', require('./modules/transactions/transaction.routes'));
 app.use('/api/favorites',    require('./modules/favorites/favorite.routes'));
 app.use('/api/analytics',    require('./modules/analytics/analytics.routes'));
+app.use('/api/admin',        require('./modules/admin/admin.routes'));
 
 // ── Route protégée de test ────────────────────────────
 const { authenticate } = require('./shared/middlewares/auth');
@@ -45,4 +46,3 @@ app.get('/api/health', (req, res) => {
 app.use(errorHandler);
 
 module.exports = app;
-

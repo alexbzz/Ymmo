@@ -52,6 +52,9 @@ export const Navbar = () => {
             {user && (user.role === 'AGENT' || user.role === 'ADMIN') && (
               <NavLink to="/dashboard" style={navLinkStyle} role="menuitem" onClick={closeMenu}>Dashboard</NavLink>
             )}
+            {user && user.role === 'ADMIN' && (
+              <NavLink to="/admin" style={navLinkStyle} role="menuitem" onClick={closeMenu}>Administration</NavLink>
+            )}
           </div>
 
           <div className="navbar-auth" style={styles.auth}>

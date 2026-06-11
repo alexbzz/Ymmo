@@ -14,6 +14,7 @@ const Favorites = lazy(() => import('./pages/Favorites').then((m) => ({ default:
 const Transactions = lazy(() => import('./pages/Transactions').then((m) => ({ default: m.Transactions })));
 const AgentDashboard = lazy(() => import('./pages/AgentDashboard').then((m) => ({ default: m.AgentDashboard })));
 const Analytics = lazy(() => import('./pages/Analytics').then((m) => ({ default: m.Analytics })));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard').then((m) => ({ default: m.AdminDashboard })));
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute roles={['ADMIN']}>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/favorites"
               element={
