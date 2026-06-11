@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "axios": "^1.16.0",
     "bcryptjs": "^3.0.3",
@@ -24,6 +25,7 @@
     "helmet": "^8.1.0",
     "joi": "^18.1.2",
     "jsonwebtoken": "^9.0.3",
+    "pg": "^8.20.0",
     "prisma": "^7.8.0"
   },
   "devDependencies": {

@@ -42,6 +42,7 @@ export const Navbar = () => {
           <div className="navbar-links" style={styles.links} role="menubar">
             <NavLink to="/" style={navLinkStyle} role="menuitem" onClick={closeMenu}>Accueil</NavLink>
             <NavLink to="/properties" style={navLinkStyle} role="menuitem" onClick={closeMenu}>Propriétés</NavLink>
+            <NavLink to="/analytics" style={navLinkStyle} role="menuitem" onClick={closeMenu}>Analytics</NavLink>
             {user && (
               <NavLink to="/favorites" style={navLinkStyle} role="menuitem" onClick={closeMenu}>Favoris</NavLink>
             )}

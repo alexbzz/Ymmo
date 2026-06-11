@@ -13,6 +13,7 @@ const Register = lazy(() => import('./pages/Register').then((m) => ({ default: m
 const Favorites = lazy(() => import('./pages/Favorites').then((m) => ({ default: m.Favorites })));
 const Transactions = lazy(() => import('./pages/Transactions').then((m) => ({ default: m.Transactions })));
 const AgentDashboard = lazy(() => import('./pages/AgentDashboard').then((m) => ({ default: m.AgentDashboard })));
+const Analytics = lazy(() => import('./pages/Analytics').then((m) => ({ default: m.Analytics })));
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/properties/:id" element={<PropertyDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route
               path="/favorites"
               element={

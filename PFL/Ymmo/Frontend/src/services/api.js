@@ -7,6 +7,17 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
+const ANALYTICS_UNAVAILABLE_MESSAGE =
+  'Le service Python d\'analytics est indisponible. Vérifiez que le backend FastAPI est bien démarré.';
+
+const normalizeAnalyticsError = (error) => {
+  if (error?.message === 'Une erreur est survenue.' || error?.message === 'Network Error') {
+    return new Error(ANALYTICS_UNAVAILABLE_MESSAGE);
+  }
+
+  return error;
+};
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -63,6 +74,37 @@ export const favoritesAPI = {
   getAll: () => api.get('/favorites'),
   add: (propertyId) => api.post(`/favorites/${propertyId}`),
   remove: (propertyId) => api.delete(`/favorites/${propertyId}`),
+};
+
+export const analyticsAPI = {
+  getMarket: async () => {
+    try {
+      return await api.get('/analytics/market');
+    } catch (error) {
+      throw normalizeAnalyticsError(error);
+    }
+  },
+  getPopular: async () => {
+    try {
+      return await api.get('/analytics/popular');
+    } catch (error) {
+      throw normalizeAnalyticsError(error);
+    }
+  },
+  getPredictions: async () => {
+    try {
+      return await api.get('/analytics/predictions');
+    } catch (error) {
+      throw normalizeAnalyticsError(error);
+    }
+  },
+  predict: async (data) => {
+    try {
+      return await api.post('/analytics/predict', data);
+    } catch (error) {
+      throw normalizeAnalyticsError(error);
+    }
+  },
 };
 
 export default api;

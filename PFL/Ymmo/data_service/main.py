@@ -1,8 +1,13 @@
 import os
+from pathlib import Path
 from typing import Any
 
 import pandas as pd
 from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR.parent / "BackEnd" / ".env")
+load_dotenv(BASE_DIR / ".env")
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
