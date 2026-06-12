@@ -9,21 +9,75 @@ export const Home = () => {
 
   return (
     <div>
-      <section style={styles.hero} aria-labelledby="hero-title">
-        <div style={styles.heroContent}>
-          <h1 id="hero-title" style={styles.heroTitle}>Bienvenue sur YMMO</h1>
-          <p style={styles.heroSubtitle}>Découvrez les meilleures propriétés</p>
-          <Link to="/properties" className="btn" style={styles.heroButton}>
-            Explorer les biens
-          </Link>
+      <section className="hero-section" aria-labelledby="hero-title">
+        <div className="hero-inner">
+          <div>
+            <div className="hero-kicker">Plateforme immobilière premium</div>
+            <h1 id="hero-title" className="hero-title">
+              Trouvez, analysez et valorisez le bien idéal avec Ymmo.
+            </h1>
+            <p className="hero-subtitle">
+              Une expérience immobilière moderne, pilotée par des données fiables, des biens sélectionnés et une interface pensée pour comparer rapidement les opportunités.
+            </p>
+            <div className="hero-actions">
+              <Link to="/properties" className="btn btn-primary">
+                Voir les biens
+              </Link>
+              <Link to="/analytics" className="btn btn-outline">
+                Analyser le marché
+              </Link>
+            </div>
+          </div>
+
+          <aside className="hero-card" aria-label="Aperçu Ymmo">
+            <div className="hero-card__row">
+              <span className="hero-card__label">Biens suivis</span>
+              <strong className="hero-card__value">1 000+</strong>
+            </div>
+            <div className="hero-card__row">
+              <span className="hero-card__label">Prix analysés</span>
+              <strong className="hero-card__value">Marché IA</strong>
+            </div>
+            <div className="hero-card__row">
+              <span className="hero-card__label">Zones couvertes</span>
+              <strong className="hero-card__value">Grandes villes FR</strong>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section className="container" style={styles.section} aria-labelledby="recent-title">
-        <h2 id="recent-title" style={styles.sectionTitle}>Propriétés récentes</h2>
-        {error && (
-          <div className="alert alert-error" role="alert">{error}</div>
-        )}
+      <section className="page-container" aria-labelledby="why-title">
+        <h2 id="why-title" className="section-heading">Pourquoi Ymmo</h2>
+        <div className="feature-grid">
+          <article className="feature-card">
+            <div className="feature-icon" aria-hidden="true">🔒</div>
+            <h3 className="feature-title">Sécurisé</h3>
+            <p className="feature-text">
+              Des parcours clairs, des accès protégés et des actions visibles pour chaque profil.
+            </p>
+          </article>
+
+          <article className="feature-card">
+            <div className="feature-icon" aria-hidden="true">📊</div>
+            <h3 className="feature-title">Données IA</h3>
+            <p className="feature-text">
+              Un suivi du marché et des tendances pour comparer plus vite les biens et les prix.
+            </p>
+          </article>
+
+          <article className="feature-card">
+            <div className="feature-icon" aria-hidden="true">🏠</div>
+            <h3 className="feature-title">12 agences</h3>
+            <p className="feature-text">
+              Un réseau multi-ville pour proposer des biens variés, du centre-ville à la maison familiale.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="page-container" style={{ marginTop: '1rem' }} aria-labelledby="recent-title">
+        <h2 id="recent-title" className="section-heading">Propriétés récentes</h2>
+        {error && <div className="alert alert-error" role="alert">{error}</div>}
         {loading ? (
           <LoadingSpinner label="Chargement des propriétés récentes…" />
         ) : (
@@ -56,47 +110,13 @@ export const Home = () => {
 };
 
 const styles = {
-  hero: {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: '#fff',
-    padding: '4rem 1rem',
-    textAlign: 'center',
-  },
-  heroContent: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-  heroTitle: {
-    fontSize: 'clamp(1.75rem, 5vw, 2.5rem)',
-    marginBottom: '1rem',
-  },
-  heroSubtitle: {
-    fontSize: 'clamp(1rem, 3vw, 1.2rem)',
-    marginBottom: '2rem',
-  },
-  heroButton: {
-    display: 'inline-block',
-    background: '#fff',
-    color: '#667eea',
-    padding: '0.75rem 2rem',
-    borderRadius: '4px',
-    textDecoration: 'none',
-    fontWeight: 'bold',
-  },
-  section: {
-    margin: '3rem auto',
-  },
-  sectionTitle: {
-    fontSize: '1.8rem',
-    marginBottom: '2rem',
-  },
   statNumber: {
     fontSize: '2rem',
-    color: '#e74c3c',
+    color: 'var(--color-primary)',
     margin: '0',
   },
   statLabel: {
-    color: '#666',
+    color: 'var(--color-text-muted)',
     margin: '0.5rem 0 0 0',
   },
 };

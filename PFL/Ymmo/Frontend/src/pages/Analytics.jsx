@@ -81,7 +81,7 @@ export const Analytics = () => {
   return (
     <main className="page-container" id="main-content">
       <h1 style={{ marginTop: 0 }}>Analytics immobiliers</h1>
-      <p style={{ color: '#666', marginBottom: '2rem' }}>
+      <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
         Consultez les tendances du marché, les biens les plus populaires et testez un simulateur de prix.
       </p>
 
@@ -91,13 +91,11 @@ export const Analytics = () => {
         </div>
       )}
 
-      {loading && !error && (
-        <LoadingSpinner label="Chargement des analyses..." />
-      )}
+      {loading && !error && <LoadingSpinner label="Chargement des analyses..." />}
 
       <section style={{ marginBottom: '2rem' }} aria-labelledby="market-title">
         <h2 id="market-title">Marché</h2>
-        <p style={{ color: '#666' }}>
+        <p style={{ color: 'var(--color-text-muted)' }}>
           Prix moyen, médian, minimum et maximum par ville et type de bien.
         </p>
 
@@ -107,20 +105,11 @@ export const Analytics = () => {
           </div>
         ) : (
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', background: '#fff' }} aria-label="Tableau des prix du marché">
+            <table className="analytics-table" aria-label="Tableau des prix du marché">
               <thead>
                 <tr>
                   {['Ville', 'Type', 'Moyenne', 'Médiane', 'Min', 'Max'].map((header) => (
-                    <th
-                      key={header}
-                      scope="col"
-                      style={{
-                        textAlign: 'left',
-                        padding: '0.875rem 0.75rem',
-                        borderBottom: '2px solid #ddd',
-                        background: '#f8f9fa',
-                      }}
-                    >
+                    <th key={header} scope="col">
                       {header}
                     </th>
                   ))}
@@ -129,12 +118,12 @@ export const Analytics = () => {
               <tbody>
                 {marketRows.map((row) => (
                   <tr key={`${row.city}-${row.propertyType}`}>
-                    <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>{row.city}</td>
-                    <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>{formatType(row.propertyType)}</td>
-                    <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>{formatPrice(row.mean)}</td>
-                    <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>{formatPrice(row.median)}</td>
-                    <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>{formatPrice(row.min)}</td>
-                    <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>{formatPrice(row.max)}</td>
+                    <td>{row.city}</td>
+                    <td>{formatType(row.propertyType)}</td>
+                    <td>{formatPrice(row.mean)}</td>
+                    <td>{formatPrice(row.median)}</td>
+                    <td>{formatPrice(row.min)}</td>
+                    <td>{formatPrice(row.max)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -145,7 +134,7 @@ export const Analytics = () => {
 
       <section style={{ marginBottom: '2rem' }} aria-labelledby="popular-title">
         <h2 id="popular-title">Biens populaires</h2>
-        <p style={{ color: '#666' }}>
+        <p style={{ color: 'var(--color-text-muted)' }}>
           Top 10 des biens les plus populaires, calculé à partir des favoris et des transactions.
         </p>
 
@@ -167,25 +156,12 @@ export const Analytics = () => {
                   style={{ textAlign: 'left' }}
                 >
                   <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>{property.title}</h3>
-                  <p style={{ margin: '0 0 0.25rem', color: '#666' }}>{property.city}</p>
+                  <p style={{ margin: '0 0 0.25rem', color: 'var(--color-text-muted)' }}>{property.city}</p>
                   <p style={{ margin: '0 0 1rem', fontWeight: 600 }}>{formatPrice(property.price)}</p>
 
                   <div aria-hidden="true" style={{ marginBottom: '0.5rem' }}>
-                    <div
-                      style={{
-                        height: 10,
-                        background: '#e9ecef',
-                        borderRadius: 999,
-                        overflow: 'hidden',
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: `${scoreWidth}%`,
-                          height: '100%',
-                          background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
-                        }}
-                      />
+                    <div className="progress-track">
+                      <div className="progress-fill" style={{ width: `${scoreWidth}%` }} />
                     </div>
                   </div>
 
@@ -199,7 +175,7 @@ export const Analytics = () => {
 
       <section aria-labelledby="simulator-title">
         <h2 id="simulator-title">Simulateur de prix</h2>
-        <p style={{ color: '#666' }}>
+        <p style={{ color: 'var(--color-text-muted)' }}>
           Saisissez les caractéristiques d'un bien pour obtenir une estimation avec intervalle de confiance.
         </p>
 
@@ -290,9 +266,7 @@ export const Analytics = () => {
           <div className="alert alert-info" role="status" aria-live="polite">
             <strong>{formatPrice(prediction.predictedPrice)}</strong>
             {' '}— intervalle de confiance entre {formatPrice(prediction.confidenceMin)} et {formatPrice(prediction.confidenceMax)}.
-            {prediction.message && (
-              <div style={{ marginTop: '0.5rem' }}>{prediction.message}</div>
-            )}
+            {prediction.message && <div style={{ marginTop: '0.5rem' }}>{prediction.message}</div>}
           </div>
         )}
 
