@@ -1,4 +1,4 @@
-const prisma = require('../../shared/config/database');
+﻿const prisma = require('../../Shared/config/database');
 
 const findAll = () => prisma.agent.findMany({
   include: {

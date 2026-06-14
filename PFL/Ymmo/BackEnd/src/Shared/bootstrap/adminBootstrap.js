@@ -1,5 +1,11 @@
-const bcrypt = require('bcryptjs');
+﻿const bcrypt = require('bcryptjs');
 const prisma = require('../config/database');
+
+/*
+  Ce fichier est utilisé pour créer un compte administrateur par défaut lors du démarrage de l'application.
+  Il vérifie si un compte administrateur existe déjà dans la base de données. Si ce n'est pas le cas, il crée un nouveau compte avec 
+  les informations par défaut ou celles définies dans les variables d'environnement.
+*/
 
 const bootstrapAdmin = async () => {
   const email = process.env.ADMIN_EMAIL || 'admin@ymmo.local';

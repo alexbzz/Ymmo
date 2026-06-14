@@ -1,7 +1,7 @@
-const express    = require('express');
+﻿const express    = require('express');
 const router     = express.Router();
 const controller = require('./user.controller');
-const { authenticate } = require('../../shared/middlewares/auth');
+const { authenticate } = require('../../Shared/middlewares/auth');
 
 router.get('/',    authenticate, controller.getMe);
 router.put('/',    authenticate, controller.updateMe);

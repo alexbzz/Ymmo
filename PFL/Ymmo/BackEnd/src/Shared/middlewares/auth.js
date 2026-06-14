@@ -1,5 +1,11 @@
-const jwt = require('jsonwebtoken');
+﻿const jwt = require('jsonwebtoken');
 const { error } = require('../utils/apiResponse');
+
+/*
+  Ce fichier contient les middlewares d'authentification et d'autorisation pour l'application.
+  Le middleware "authenticate" vérifie la présence et la validité du token JWT dans l'en-tête Authorization.
+  Le middleware "authorize" vérifie si l'utilisateur a le rôle requis pour accéder à une route spécifique.
+*/
 
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;

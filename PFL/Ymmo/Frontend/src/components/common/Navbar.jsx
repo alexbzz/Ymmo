@@ -14,8 +14,7 @@ export const Navbar = () => {
     <nav className="navbar" role="navigation" aria-label="Navigation principale">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" aria-label="YMMO — Accueil" onClick={closeMenu}>
-          <span className="navbar-logo-mark">Y</span>
-          <span>MMO</span>
+          <img src="/ymmo-logo.svg" alt="YMMO" className="navbar-logo-image" />
         </Link>
 
         <button
@@ -55,7 +54,7 @@ export const Navbar = () => {
                 <button
                   type="button"
                   onClick={() => { logout(); closeMenu(); }}
-                  className="btn btn-accent"
+                  className="btn btn-primary"
                   aria-label="Se déconnecter"
                 >
                   Déconnexion
@@ -64,7 +63,7 @@ export const Navbar = () => {
             ) : (
               <>
                 <NavLink to="/login" className={linkClassName} onClick={closeMenu}>Connexion</NavLink>
-                <Link to="/register" className="btn btn-accent" onClick={closeMenu}>Inscription</Link>
+                <Link to="/register" className="btn btn-primary" onClick={closeMenu}>Inscription</Link>
               </>
             )}
           </div>

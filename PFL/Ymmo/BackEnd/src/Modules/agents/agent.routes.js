@@ -1,7 +1,7 @@
-const express    = require('express');
+﻿const express    = require('express');
 const router     = express.Router();
 const controller = require('./agent.controller');
-const { authenticate, authorize } = require('../../shared/middlewares/auth');
+const { authenticate, authorize } = require('../../Shared/middlewares/auth');
 
 router.get('/',          controller.getAll);
 router.get('/my-stats',  authenticate, authorize('AGENT'), controller.getMyStats);

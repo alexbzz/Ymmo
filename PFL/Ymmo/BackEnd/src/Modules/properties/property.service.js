@@ -1,4 +1,10 @@
-const prisma = require('../../shared/config/database');
+﻿const prisma = require('../../Shared/config/database');
+
+/*
+  Ce fichier contient les fonctions de service pour gérer les biens.
+  Il interagit avec la base de données via Prisma pour créer, récupérer, mettre à jour et supprimer des biens.
+  Les fonctions incluent des vérifications pour s'assurer que l'utilisateur a les droits nécessaires pour effectuer certaines actions.
+*/
 
 const findAll = async (filters = {}) => {
   const where = {};

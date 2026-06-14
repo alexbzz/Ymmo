@@ -1,6 +1,12 @@
-const propertyService = require('./property.service');
+﻿const propertyService = require('./property.service');
 const { createPropertySchema, updatePropertySchema, addPhotosSchema } = require('./property.validation');
-const { success, error } = require('../../shared/utils/apiResponse');
+const { success, error } = require('../../Shared/utils/apiResponse');
+
+/*
+  Ce fichier contient les contrôleurs pour gérer les biens.
+  Il définit les fonctions pour récupérer tous les biens, récupérer un bien par ID, créer un bien, mettre à jour un bien, supprimer un bien et ajouter des photos à un bien.
+  Chaque fonction utilise le service de propriété pour interagir avec la base de données et renvoie une réponse JSON appropriée.
+*/
 
 const getAll = async (req, res) => {
   try {

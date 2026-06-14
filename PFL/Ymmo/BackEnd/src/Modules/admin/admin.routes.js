@@ -1,6 +1,6 @@
-const express = require('express');
+﻿const express = require('express');
 const controller = require('./admin.controller');
-const { authenticate, authorize } = require('../../shared/middlewares/auth');
+const { authenticate, authorize } = require('../../Shared/middlewares/auth');
 
 const router = express.Router();
 

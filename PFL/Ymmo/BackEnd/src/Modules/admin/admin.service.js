@@ -1,4 +1,4 @@
-const prisma = require('../../shared/config/database');
+﻿const prisma = require('../../Shared/config/database');
 
 const getOverview = async () => {
   const [users, properties, transactions, favorites] = await Promise.all([

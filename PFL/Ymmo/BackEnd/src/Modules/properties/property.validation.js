@@ -1,4 +1,9 @@
-const Joi = require('joi');
+﻿const Joi = require('joi');
+/*
+  Ce fichier contient les schémas de validation pour les propriétés.
+  Il utilise Joi pour définir les règles de validation des données d'entrée lors de la création et de la mise à jour d'une propriété.
+  Les schémas "createPropertySchema" et "updatePropertySchema" valident les champs requis et leurs types, ainsi que les valeurs autorisées pour certains champs.
+*/
 
 const createPropertySchema = Joi.object({
   title:       Joi.string().min(5).max(100).required(),

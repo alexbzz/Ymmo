@@ -1,6 +1,6 @@
-const authService = require('./auth.service');
+﻿const authService = require('./auth.service');
 const { registerSchema, loginSchema } = require('./auth.validation');
-const { success, error } = require('../../shared/utils/apiResponse');
+const { success, error } = require('../../Shared/utils/apiResponse');
 
 const register = async (req, res) => {
   const { value, error: validationError } = registerSchema.validate(req.body);

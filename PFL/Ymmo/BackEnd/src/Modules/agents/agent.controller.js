@@ -1,6 +1,6 @@
-const agentService = require('./agent.service');
+﻿const agentService = require('./agent.service');
 const { registerAgentSchema } = require('./agent.validation');
-const { success, error } = require('../../shared/utils/apiResponse');
+const { success, error } = require('../../Shared/utils/apiResponse');
 
 const getAll = async (req, res) => {
   try {

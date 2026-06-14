@@ -1,4 +1,11 @@
-const prisma = require('../../shared/config/database');
+﻿const prisma = require('../../Shared/config/database');
+
+/*
+  Ce fichier contient les fonctions de service pour gérer les favoris.
+  Il interagit avec la base de données via Prisma pour ajouter, supprimer et récupérer les favoris d'un utilisateur.
+  Les fonctions incluent des vérifications pour s'assurer que les biens sont disponibles et que l'utilisateur a les droits nécessaires pour effectuer certaines actions.
+*/
+
 
 const add = async (userId, propertyId) => {
   const property = await prisma.property.findUnique({ where: { id: propertyId } });

@@ -1,6 +1,12 @@
-const path = require('path');
+﻿const path = require('path');
 const { PrismaClient } = require('@prisma/client');
 const { PrismaPg } = require('@prisma/adapter-pg');
+
+/*
+  Ce fichier est utilisé pour configurer la connexion à la base de données PostgreSQL en utilisant Prisma.
+  Il lit l'URL de connexion à partir des variables d'environnement et initialise un client Prisma avec 
+  l'adaptateur PostgreSQL.
+*/
 
 require('dotenv').config({
   path: path.resolve(__dirname, '../../../.env'),

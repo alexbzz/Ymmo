@@ -1,6 +1,13 @@
-const bcrypt = require('bcryptjs');
+﻿const bcrypt = require('bcryptjs');
 const jwt    = require('jsonwebtoken');
-const prisma = require('../../shared/config/database');
+const prisma = require('../../Shared/config/database');
+
+/*
+  Ce fichier contient les fonctions de service pour gérer les utilisateurs.
+  Il interagit avec la base de données via Prisma pour créer, récupérer et mettre à jour des utilisateurs.
+  Les fonctions incluent des vérifications pour s'assurer que les données sont valides et que l'utilisateur a les droits nécessaires pour effectuer certaines actions.
+*/
+
 
 const register = async ({ firstName, lastName, email, password, phone, role }) => {
   // Vérifie si l'email existe déjà

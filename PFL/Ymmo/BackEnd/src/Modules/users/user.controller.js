@@ -1,5 +1,5 @@
-const userService = require('./user.service');
-const { success, error } = require('../../shared/utils/apiResponse');
+﻿const userService = require('./user.service');
+const { success, error } = require('../../Shared/utils/apiResponse');
 
 const getMe = async (req, res) => {
   try {

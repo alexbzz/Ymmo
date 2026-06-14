@@ -1,4 +1,4 @@
-const { error, success } = require('../../shared/utils/apiResponse');
+﻿const { error, success } = require('../../Shared/utils/apiResponse');
 const adminService = require('./admin.service');
 
 const ALLOWED_ROLES = ['CLIENT', 'AGENT', 'ADMIN'];

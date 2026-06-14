@@ -1,4 +1,9 @@
-const prisma = require('../../shared/config/database');
+﻿const prisma = require('../../Shared/config/database');
+
+/*  Ce fichier contient les fonctions de service pour gérer les transactions.
+  Il interagit avec la base de données via Prisma pour créer des transactions, récupérer les transactions d'un utilisateur et mettre à jour le statut d'une transaction.
+  Les fonctions incluent des vérifications pour s'assurer que les biens sont disponibles et que l'utilisateur a les droits nécessaires pour effectuer certaines actions.
+*/
 
 const create = async (buyerId, propertyId, offerPrice) => {
   const property = await prisma.property.findUnique({ where: { id: propertyId } });

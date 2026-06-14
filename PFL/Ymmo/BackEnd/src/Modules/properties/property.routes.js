@@ -1,7 +1,9 @@
-const express    = require('express');
+﻿const express    = require('express');
 const router     = express.Router();
 const controller = require('./property.controller');
-const { authenticate, authorize } = require('../../shared/middlewares/auth');
+const { authenticate, authorize } = require('../../Shared/middlewares/auth');
+
+// Routes pour les biens
 
 router.get('/',              controller.getAll);
 router.get('/:id',           controller.getById);

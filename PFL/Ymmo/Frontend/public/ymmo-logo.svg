@@ -1,0 +1,16 @@
+<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">YMMO</title>
+  <desc id="desc">Logo Ymmo avec une lettre Y et un toit de maison</desc>
+  <rect width="320" height="120" rx="18" fill="#ffffff"/>
+  <path d="M22 18H50L77 53L101 33L87 70V88H63V70L22 18Z" fill="#0b2a48"/>
+  <path d="M78 45L129 10L194 62H159L134 42H124L86 71L78 45Z" fill="#c9a84c"/>
+  <path d="M147 56H166V88H147V56Z" fill="#c9a84c"/>
+  <path d="M109 65H121V77H109V65Z" fill="#c9a84c"/>
+  <path d="M127 65H139V77H127V65Z" fill="#c9a84c"/>
+  <path d="M109 82H121V94H109V82Z" fill="#c9a84c"/>
+  <path d="M127 82H139V94H127V82Z" fill="#c9a84c"/>
+  <text x="195" y="74" fill="#0b2a48" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="900" letter-spacing="5">YMM</text>
+  <text x="284" y="74" fill="#c9a84c" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="900">O</text>
+  <path d="M198 94H238" stroke="#c9a84c" stroke-width="3"/>
+  <text x="245" y="99" fill="#0b2a48" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="3">YMMO</text>
+</svg>

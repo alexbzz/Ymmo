@@ -1,5 +1,11 @@
-const favoriteService = require('./favorite.service');
-const { success, error } = require('../../shared/utils/apiResponse');
+﻿const favoriteService = require('./favorite.service');
+const { success, error } = require('../../Shared/utils/apiResponse');
+
+/*
+  Ce fichier contient les contrôleurs pour gérer les favoris.
+  Il définit les fonctions pour ajouter un favori, supprimer un favori et récupérer les favoris d'un utilisateur.
+  Chaque fonction utilise le service de favoris pour interagir avec la base de données et renvoie une réponse JSON appropriée.
+*/
 
 const add = async (req, res) => {
   try {

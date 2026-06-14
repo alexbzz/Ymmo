@@ -1,7 +1,15 @@
-const express = require('express');
+﻿const express = require('express');
 const axios = require('axios');
 const { error } = require('../../Shared/utils/apiResponse');
 
+/*  
+  Ce fichier contient les routes pour les analyses.
+  Il définit les endpoints pour récupérer les données d'analyse du marché, 
+  les biens populaires, les prédictions et pour effectuer des prédictions.
+  Les requêtes sont proxyées vers un service Python externe via Axios.
+*/
+
+// Routes pour les analyses
 const router = express.Router();
 const PYTHON_SERVICE_URL = process.env.PYTHON_SERVICE_URL || 'http://localhost:8000';
 

@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+﻿const bcrypt = require('bcryptjs');
 const prisma = require('../src/Shared/config/database');
 
 const PROPERTY_TYPE_LABELS = {
@@ -13,7 +13,7 @@ const makePhotos = (seedBase, count = 3) =>
 
 const createDescription = (property) => {
   const typeLabel = PROPERTY_TYPE_LABELS[property.type] || property.type;
-  return `${typeLabel} de ${property.surface} m², ${property.rooms} pièce(s), situé à ${property.district} à ${property.city}. Idéal pour une vie confortable et lumineuse.`;
+  return `${typeLabel} de ${property.surface} mÂ², ${property.rooms} pièce(s), situé à ${property.district} à ${property.city}. Idéal pour une vie confortable et lumineuse.`;
 };
 
 const agents = [
@@ -71,7 +71,7 @@ const catalog = [
   },
   {
     city: 'Lyon',
-    district: 'Presqu’île',
+    district: 'Presqu’Ã®le',
     postalCode: '69002',
     agentKey: 'paris-lyon',
     properties: [
@@ -102,7 +102,7 @@ const catalog = [
     agentKey: 'marseille-bordeaux',
     properties: [
       { title: 'Appartement pierre bordelaise', type: 'APARTMENT', surface: 76, rooms: 3, price: 529000, status: 'AVAILABLE', address: '17 cours Portal' },
-      { title: 'Échoppe rénovée à Caudéran', type: 'HOUSE', surface: 118, rooms: 5, price: 658000, status: 'AVAILABLE', address: '34 avenue d’Arès' },
+      { title: 'Ã‰choppe rénovée à Caudéran', type: 'HOUSE', surface: 118, rooms: 5, price: 658000, status: 'AVAILABLE', address: '34 avenue d’Arès' },
       { title: 'Loft rénové à Saint-Michel', type: 'APARTMENT', surface: 92, rooms: 4, price: 614000, status: 'UNDER_OFFER', address: '9 rue Leyteire' },
       { title: 'T2 balcon à Bacalan', type: 'APARTMENT', surface: 49, rooms: 2, price: 279000, status: 'AVAILABLE', address: '4 rue Achard' },
       { title: 'Maison familiale Saint-Augustin', type: 'HOUSE', surface: 155, rooms: 6, price: 845000, status: 'SOLD', address: '21 rue de Bègles' },
@@ -110,11 +110,11 @@ const catalog = [
   },
   {
     city: 'Nantes',
-    district: 'Île de Nantes',
+    district: 'ÃŽle de Nantes',
     postalCode: '44000',
     agentKey: 'nantes-lille',
     properties: [
-      { title: 'Appartement lumineux sur l’île', type: 'APARTMENT', surface: 68, rooms: 3, price: 389000, status: 'AVAILABLE', address: '5 rue des Machines' },
+      { title: 'Appartement lumineux sur l’Ã®le', type: 'APARTMENT', surface: 68, rooms: 3, price: 389000, status: 'AVAILABLE', address: '5 rue des Machines' },
       { title: 'Maison nantaise à Procé', type: 'HOUSE', surface: 132, rooms: 5, price: 598000, status: 'AVAILABLE', address: '18 boulevard de Longchamp' },
       { title: 'Duplex terrasse à Canclaux', type: 'APARTMENT', surface: 97, rooms: 4, price: 545000, status: 'UNDER_OFFER', address: '10 rue des Dervallières' },
       { title: 'T4 centre-ville au Bouffay', type: 'APARTMENT', surface: 84, rooms: 4, price: 469000, status: 'AVAILABLE', address: '12 rue de la Juiverie' },
@@ -137,8 +137,8 @@ const catalog = [
 ];
 
 const favoritePlan = [
-  { clientEmail: 'client.anna@ymmo.local', titles: ['Haussmannien avec balcon filant', 'T3 vue Saône', 'Appartement vue mer', 'Appartement pierre bordelaise', 'Appartement lumineux sur l’île', 'Appartement cossu Vieux-Lille'] },
-  { clientEmail: 'client.marc@ymmo.local', titles: ['Loft lumineux proche Bastille', 'Canut rénové à Croix-Rousse', 'Maison avec jardin à Mazargues', 'Échoppe rénovée à Caudéran', 'Maison nantaise à Procé', 'Duplex chaleureux à Vauban'] },
+  { clientEmail: 'client.anna@ymmo.local', titles: ['Haussmannien avec balcon filant', 'T3 vue Saône', 'Appartement vue mer', 'Appartement pierre bordelaise', 'Appartement lumineux sur l’Ã®le', 'Appartement cossu Vieux-Lille'] },
+  { clientEmail: 'client.marc@ymmo.local', titles: ['Loft lumineux proche Bastille', 'Canut rénové à Croix-Rousse', 'Maison avec jardin à Mazargues', 'Ã‰choppe rénovée à Caudéran', 'Maison nantaise à Procé', 'Duplex chaleureux à Vauban'] },
   { clientEmail: 'client.sonia@ymmo.local', titles: ['Duplex familial au Luxembourg', 'Duplex moderne à Confluence', 'T4 lumineux à Endoume', 'T2 balcon à Bacalan', 'T4 centre-ville au Bouffay', 'Maison de famille à Wazemmes'] },
 ];
 
@@ -155,7 +155,7 @@ const transactionPlan = [
   { buyerEmail: 'client.anna@ymmo.local', title: 'Duplex terrasse à Canclaux', offerPrice: 538000, status: 'REJECTED' },
   { buyerEmail: 'client.marc@ymmo.local', title: 'Loft industriel à Euralille', offerPrice: 530000, status: 'PENDING' },
   { buyerEmail: 'client.sonia@ymmo.local', title: 'T4 lumineux à Endoume', offerPrice: 430000, status: 'PENDING' },
-  { buyerEmail: 'client.anna@ymmo.local', title: 'Appartement lumineux sur l’île', offerPrice: 382000, status: 'ACCEPTED' },
+  { buyerEmail: 'client.anna@ymmo.local', title: 'Appartement lumineux sur l’Ã®le', offerPrice: 382000, status: 'ACCEPTED' },
   { buyerEmail: 'client.marc@ymmo.local', title: 'Appartement cossu Vieux-Lille', offerPrice: 315000, status: 'REJECTED' },
   { buyerEmail: 'client.sonia@ymmo.local', title: 'Duplex moderne à Confluence', offerPrice: 552000, status: 'PENDING' },
 ];
