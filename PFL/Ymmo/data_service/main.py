@@ -11,7 +11,6 @@ load_dotenv(BASE_DIR / ".env")
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from sklearn.linear_model import LinearRegression
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 
@@ -85,22 +84,34 @@ def load_transactions() -> pd.DataFrame:
     return read_query('SELECT id, "propertyId", "offerPrice", status, "createdAt" FROM "Transaction"')
 
 
-def train_regression(df: pd.DataFrame) -> tuple[LinearRegression, float] | None:
+def train_regression(df: pd.DataFrame):
     if len(df) < MIN_SAMPLES_FOR_REGRESSION:
         return None
 
-    x = df[["surface"]].values
+    x = df["surface"].values
     y = df["price"].values
-    model = LinearRegression()
-    model.fit(x, y)
-    r2 = round(float(model.score(x, y)), 2)
-    return model, r2
+
+    # Régression linéaire manuelle avec numpy (y = ax + b)
+    n = len(x)
+    mean_x = x.mean()
+    mean_y = y.mean()
+    coef = float(((x - mean_x) * (y - mean_y)).sum() / ((x - mean_x) ** 2).sum())
+    intercept = float(mean_y - coef * mean_x)
+
+    # Calcul R²
+    y_pred = coef * x + intercept
+    ss_res = ((y - y_pred) ** 2).sum()
+    ss_tot = ((y - mean_y) ** 2).sum()
+    r2 = round(float(1 - ss_res / ss_tot) if ss_tot != 0 else 0.0, 2)
+
+    return {"coef": coef, "intercept": intercept}, r2
 
 
-def regression_stats(model: LinearRegression, r2: float) -> dict[str, float]:
+
+def regression_stats(model: dict, r2: float) -> dict[str, float]:
     return {
-        "coefficient": round(float(model.coef_[0]), 2),
-        "intercept": round(float(model.intercept_), 2),
+        "coefficient": round(model["coef"], 2),
+        "intercept": round(model["intercept"], 2),
         "r2": r2,
     }
 
@@ -130,7 +141,7 @@ def predict_price(
     result = train_regression(city_df)
     if result is not None:
         model, r2 = result
-        predicted = float(model.predict([[surface]])[0])
+        predicted = float(model["coef"] * surface + model["intercept"])
         return {
             "predictedPrice": round(predicted, 2),
             "confidenceMin": round(predicted * (1 - CONFIDENCE_MARGIN), 2),
