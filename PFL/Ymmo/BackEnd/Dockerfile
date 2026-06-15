@@ -1,8 +1,9 @@
 FROM node:22-alpine
 WORKDIR /app
 COPY package*.json ./
+COPY prisma ./prisma
 RUN npm install
 COPY . .
-RUN npx prisma generate --config prisma.config.ts
+RUN npx prisma generate
 EXPOSE 3000
-CMD ["node", "src/server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node src/server.js"]

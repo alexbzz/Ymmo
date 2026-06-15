@@ -1,7 +1,6 @@
 ﻿require('dotenv').config();
 const app = require('./app');
-const bootstrapAdmin = require('./shared/bootstrap/adminBootstrap');
-
+const bootstrapAdmin = require('./Shared/bootstrap/adminBootstrap');
 const PORT = process.env.PORT || 3000;
 
 (async () => {
