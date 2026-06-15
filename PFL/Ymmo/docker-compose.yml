@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+
+  # ── Base de données PostgreSQL ──────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: ymmo_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ymmo1234
+      POSTGRES_DB: ymmo_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ymmo_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Backend Node.js ─────────────────────────────────────
+  backend:
+    build:
+      context: ./BackEnd
+      dockerfile: Dockerfile
+    container_name: ymmo_backend
+    restart: always
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      DATABASE_URL: postgresql://postgres:ymmo1234@postgres:5432/ymmo_db
+      JWT_SECRET: ymmo_super_secret_key_change_in_production
+      JWT_EXPIRES_IN: 7d
+      PYTHON_SERVICE_URL: http://data_service:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ymmo_network
+
+  # ── Service Python FastAPI ──────────────────────────────
+  data_service:
+    build:
+      context: ./data_service
+      dockerfile: Dockerfile
+    container_name: ymmo_python
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://postgres:ymmo1234@postgres:5432/ymmo_db
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ymmo_network
+
+  # ── Frontend React ──────────────────────────────────────
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: ymmo_frontend
+    restart: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - ymmo_network
+
+# ── Volumes ─────────────────────────────────────────────
+volumes:
+  postgres_data:
+    driver: local
+
+# ── Réseau ──────────────────────────────────────────────
+networks:
+  ymmo_network:
+    driver: bridge
